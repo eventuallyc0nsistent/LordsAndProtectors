@@ -3,15 +3,14 @@ import java.util.* ;
 class Lord extends Noble {
 
 	/*
-	the name of noble
+	the name of Lord
 	the strength of the noble's army
 	status of death of the noble
+	A list of Protectors for a Lord
 	 */
 	private String name;
 	private double armyStrength;
 	private Boolean dead;
-	
-	// A list of Protectors for a Lord
 	private ArrayList<Protector> lordProtectors = new ArrayList<Protector>();
 
 	/* 
@@ -26,12 +25,13 @@ class Lord extends Noble {
 
 	/*
 	Fetches the strength of the army of the Noble by adding the strength of the warriors
-	@return : the strength of the army for the given Noble
+	@return : the strength of the army for the given Lord
 	 */
 	public double getArmyStrength()
 	{
 		this.armyStrength = 0;
-		// sum the strength of all the warriors of the given Noble
+
+		// sum the strength of all the warriors of the given Lord
 		for(Protector p:this.getLordProtectors())
 		{
 			this.armyStrength = this.armyStrength + p.getStrength() ;
@@ -42,7 +42,7 @@ class Lord extends Noble {
 	}
 
 	/*
-	For the Nobleman we set the strength of the army he has
+	For the Lord we set the strength of the army he has
 	@param : the strength of the army 
 	 */
 	public void setArmyStrength(double strength)
@@ -51,8 +51,8 @@ class Lord extends Noble {
 	}
 
 	/*
-	add warriors to list for a given Noble
-	@param : The warrior the Noble hires
+	add Protectors to list for a given Lord
+	@param : The Protector the Lord hires
 	 */
 	public void hire(Protector protector)
 	{
@@ -62,49 +62,58 @@ class Lord extends Noble {
 			//set protector employment status 'true' to when hired
 			protector.setEmployedStatus(true);
 
-			// for the given protector set his employer to the Nobleman who hired him
+			// for the given protector set his employer to the Lord who hired him
 			protector.setEmployer(this);
 
-			// add to nobleProtector list for the given Noble and add protectors strength to armyStrength
+			// add to nobleProtector list for the given Lord and add protectors strength to armyStrength
 			this.addLordProtectors(protector);
 
 			// increment the armyStrength for the noble by adding a protectors strength
 			this.armyStrength = this.armyStrength + protector.getStrength();
 		
-		} else 
+		} 
+
+		// if the Protector is already hired
+		else 
 		{
 			System.out.println(this.getName()+" could not hire "+protector.getName()+" !");
 		}
 
 	}
 
-
-
 	/*
-	to kill the Army of a Noble
+	to kill the Army of a Lord
 	 */
 	public void killArmy()
 	{
-		// set the dead status of the Noble man to 'true'
+		// set the dead status of the Lord to 'true'
 		this.setDead(true);
 
-		// for all warriors of the given Noble
+		// for all Protectors of the given Lord
 		for(Protector p:this.getLordProtectors())
 		{
-			// set the strength of the warrior to 0
+			// set the strength of the Protector to 0
 			p.setStrength(0);
 
-			// shout of the Protector !
+			// battle cry of the Protector !
 			System.out.println(p.fight());
 		}
 
 	}
 
+	/*
+	List all the Protectors of a given Lord
+	@return : the list of protectors in the ArrayList
+	 */
 	public ArrayList<Protector> getLordProtectors()
 	{
 		return this.lordProtectors;
 	}
 
+	/*
+	Add theProtectors to the Lords list
+	@param : protector to be added
+	 */
 	public void addLordProtectors(Protector p)
 	{
 		this.lordProtectors.add(p);
@@ -116,11 +125,14 @@ class Lord extends Noble {
 	 */
 	public void hurtArmy(double armyStrengthRatio)
 	{
+		// for all Protectors for the given Lord
 		for(Protector p:this.getLordProtectors())
 		{
 			// // set the strength of the protector
 			double protectorStrength = p.getStrength() - armyStrengthRatio*p.getStrength();
 			p.setStrength(protectorStrength);
+
+			//battle cry of the Protector !
 			System.out.println(p.fight());
 		}
 

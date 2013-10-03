@@ -5,7 +5,6 @@ import java.util.*;
  */
 abstract class Protector {
 	
-
 	/*
 	the name of protector
 	the strength of the protector

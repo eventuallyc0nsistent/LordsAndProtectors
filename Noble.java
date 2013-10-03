@@ -9,19 +9,19 @@ abstract class Noble {
 	the name of noble
 	the strength of the noble's army
 	status of death of the noble
+	A list of Protectors for a Lord
 	 */
 	private String name;
 	private double armyStrength;
 	private Boolean dead;
 
-	// A list of Protectors for a Lord
 	private ArrayList<Protector> lordProtectors = new ArrayList<Protector>();
 	
 	/*
 	Constructor function for a Noble
 	We set then name of the noble man
 	We set that Noble is not dead
-	@param : String type of name
+	@param : nobleName String name of the Noble
 	 */
 	public Noble(String nobleName)
 	{
@@ -47,26 +47,36 @@ abstract class Noble {
 		return this.dead;
 	}
 
+	/*
+	set the noble status to the value
+	@param status Boolean the status of the Noble
+	 */
 	public void setDead(Boolean status)
 	{
 		this.dead = status;
 	}
 
 	/*
-	abstract class to killArmy of Noble
+	kill the army in the battle
 	 */
 	public abstract void killArmy();
 
 	/*
 	For the Nobles who win but have hurt themselves in battle
-	@param : armyStrengthRatio is the ratio by which every warrior in Lord/PersonWithStrength will hurt himself in battle
+	@param : armyStrengthRatio is the ratio by which every warrior in Lord or PersonWithStrength will hurt himself in battle
 	 */
 	public abstract void hurtArmy(double armyStrengthRatio);
 
-	//abstract class to get the strength of the army
+	/*
+	abstract class to get the strength of the army
+	@return : double armyStrength will be a decimal value
+	 */
 	public abstract double getArmyStrength();
 
-	//abstract class to set the strength of the army
+	/* 
+	abstract class to set the strength of the army
+	@param : strength double will be set to the decimal value
+	*/
 	public abstract void setArmyStrength(double strength);
 
 	/*
@@ -77,17 +87,22 @@ abstract class Noble {
 	{
 		System.out.println(this.name+" battles "+enemy.name);
 
-		// check if the enemy is dead already before battle
+		// check if Nobles are dead already before battle
 		if(enemy.isDead() || this.isDead())
 		{
+			// check if both are dead
 			if(this.isDead() && enemy.isDead())
 			{
 				System.out.println("Oh, NO! They're both dead!  Yuck!");
 			}
+
+			// check if enemy is dead
 			else if (enemy.isDead()) 
 			{
 				System.out.println("He's dead "+this.name);
 			}
+
+			// check if the noble who started battle is dead
 			else 
 			{
 				System.out.println("He's dead "+enemy.name);
@@ -105,7 +120,8 @@ abstract class Noble {
 				System.out.println("Mutual Annihilation: "+this.name+" and "+enemy.name+" die at each other's hands");
 
 			}
-			// noble's strength of army greater than enemy
+
+			// noble whose started battle's strength of army greater than enemy army
 			else if(this.getArmyStrength() > enemy.getArmyStrength())
 			{
 				double enemyArmyStrength = enemy.getArmyStrength();
@@ -120,7 +136,8 @@ abstract class Noble {
 				System.out.println(this.name+" defeats "+enemy.name);
 
 			}
-			// enemy's strength of army greater than noble's
+			
+			// enemy's strength of army greater than noble whose started battle's
 			else 
 			{
 				double enemyArmyStrength = enemy.getArmyStrength();
