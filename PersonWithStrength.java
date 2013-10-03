@@ -1,5 +1,13 @@
 class PersonWithStrength extends Noble{
-
+	/*
+	the name of noble
+	the strength of the noble's army
+	status of death of the noble
+	 */
+	private String name;
+	private double armyStrength;
+	private Boolean dead;
+	
 	public PersonWithStrength(String name,double armyStrength)
 	{
 		super(name);
@@ -37,6 +45,18 @@ class PersonWithStrength extends Noble{
 	{
 		// set the dead status of the Noble man to 'true'
 		this.dead = state;
+	}
+
+	/*
+	 To override the toString method of the Nobles Class
+	 Append all results to StringBuilder and display when called for the Noble
+	 */
+	@Override public String toString(){
+
+		StringBuilder result = new StringBuilder();
+		result.append(this.getName()+" : "+this.getArmyStrength()+"\n");
+
+		return result.toString();
 	}
 
 }

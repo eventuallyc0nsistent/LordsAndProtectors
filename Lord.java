@@ -2,8 +2,17 @@ import java.util.* ;
 
 class Lord extends Noble {
 
+	/*
+	the name of noble
+	the strength of the noble's army
+	status of death of the noble
+	 */
+	private String name;
+	private double armyStrength;
+	private Boolean dead;
+	
 	// A list of Protectors for a Lord
-	ArrayList<Protector> lordProtectors = new ArrayList<Protector>();
+	private ArrayList<Protector> lordProtectors = new ArrayList<Protector>();
 
 	/* 
 	constructor for Lord from super Class Noble
@@ -21,10 +30,10 @@ class Lord extends Noble {
 	 */
 	public double getArmyStrength()
 	{
+		this.armyStrength = 0;
 		// sum the strength of all the warriors of the given Noble
-		for(Protector p:this.lordProtectors)
+		for(Protector p:this.getLordProtectors())
 		{
-			this.armyStrength = 0;
 			this.armyStrength = this.armyStrength + p.getStrength() ;
 			
 		}
@@ -48,9 +57,8 @@ class Lord extends Noble {
 	public void hire(Protector protector)
 	{
 		// check if the protector trying to be hired is Employed or not
-		if(!protector.getEmployedStatus())
+		if(!protector.getEmployedStatus() && !this.isDead())
 		{
-		
 			//set protector employment status 'true' to when hired
 			protector.setEmployedStatus(true);
 
@@ -58,14 +66,14 @@ class Lord extends Noble {
 			protector.setEmployer(this);
 
 			// add to nobleProtector list for the given Noble and add protectors strength to armyStrength
-			lordProtectors.add(protector);
+			this.addLordProtectors(protector);
 
 			// increment the armyStrength for the noble by adding a protectors strength
 			this.armyStrength = this.armyStrength + protector.getStrength();
 		
 		} else 
 		{
-			System.out.println(protector.getName()+" has been already hired, "+this.getName()+" !");
+			System.out.println(this.getName()+" could not hire "+protector.getName()+" !");
 		}
 
 	}
@@ -78,15 +86,28 @@ class Lord extends Noble {
 	public void killArmy()
 	{
 		// set the dead status of the Noble man to 'true'
-		this.dead = true;
+		this.setDead(true);
 
 		// for all warriors of the given Noble
-		for(Protector p:this.lordProtectors)
+		for(Protector p:this.getLordProtectors())
 		{
 			// set the strength of the warrior to 0
 			p.setStrength(0);
+
+			// shout of the Protector !
+			p.fight();
 		}
 
+	}
+
+	public ArrayList<Protector> getLordProtectors()
+	{
+		return this.lordProtectors;
+	}
+
+	public void addLordProtectors(Protector p)
+	{
+		this.lordProtectors.add(p);
 	}
 
 	/*
@@ -95,10 +116,9 @@ class Lord extends Noble {
 	 */
 	public void hurtArmy(double armyStrengthRatio)
 	{
-
-		for(Protector p:this.lordProtectors)
+		for(Protector p:this.getLordProtectors())
 		{
-			// set the strength of the protector
+			// // set the strength of the protector
 			double protectorStrength = p.getStrength() - armyStrengthRatio*p.getStrength();
 			p.setStrength(protectorStrength);
 			p.fight();
@@ -111,12 +131,13 @@ class Lord extends Noble {
 	 To override the toString method of the Nobles Class
 	 Append all results to StringBuilder and display when called for the Noble
 	 */
-	@Override public String toString(){
+	@Override public String toString()
+	{
 
 		StringBuilder result = new StringBuilder();
-		result.append(this.getName()+" has an army of "+this.lordProtectors.size()+"\n");
+		result.append(this.getName()+" has an army of "+this.getLordProtectors().size()+"\n");
 
-		for(Protector p:lordProtectors)
+		for(Protector p:getLordProtectors())
 		{
 			result.append("\t"+p.getName()+": "+p.getStrength()+"\n");
 		}

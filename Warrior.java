@@ -1,8 +1,17 @@
-class Warrior extends LordsAndWarriors{
+import java.util.*;
+
+abstract class Warrior extends Protector{
 	
-	public Warrior()
+	private String name;
+	private double strength;
+	private Boolean employed;
+	private Lord protectorsNoble;
+	
+	public Warrior (String name, double strength)
 	{
-		System.out.println("I am a Warrior");
+		super(name,strength);
 	}
+
+	public abstract String fight();
 
 }

@@ -5,6 +5,18 @@ import java.util.*;
  */
 abstract class Protector {
 	
+
+	/*
+	the name of protector
+	the strength of the protector
+	employement status of the protector
+	the Lord who hired the protector
+	 */
+	private String name;
+	private double strength;
+	private Boolean employed;
+	private Lord protectorsNoble;
+
 	/*
 	Constructor function for a Protector 
 	set the name of the warrior and the strength that he has
@@ -15,6 +27,8 @@ abstract class Protector {
 	{
 		this.name = protectorName;
 		this.strength = protectorStrength;
+		this.employed = false;
+		this.protectorsNoble = null;
 	}
 
 	/*
@@ -26,7 +40,7 @@ abstract class Protector {
 		return name;
 	}
 
-	public abstract void fight();
+	public abstract String fight();
 	
 	/* 
 	get strength of protector 
@@ -73,33 +87,32 @@ abstract class Protector {
 		this.protectorsNoble = name;
 	}
 
+	public Lord getEmployer()
+	{
+		return this.protectorsNoble;
+	}
+
 	/*
 	runway to free employment status of protector
 	 */
 	public void runsaway()
 	{
-		// set employment status of protector to false
-		this.setEmployedStatus(false);
+		if(this.getStrength()!=0)
+		{
+			// set employment status of protector to false
+			this.setEmployedStatus(false);
 
-		// remove protector from the list that he is hired in
-		this.protectorsNoble.lordProtectors.remove(this);
+			// remove protector from the list that he is hired in
+			ArrayList<Protector> lordProtectors = this.protectorsNoble.getLordProtectors();
+			lordProtectors.remove(this);
 
-		// set the new strength of the Noble of the protector
-		this.protectorsNoble.setArmyStrength(this.protectorsNoble.getArmyStrength());
+			// set the new strength of the Noble of the protector
+			this.protectorsNoble.setArmyStrength(this.protectorsNoble.getArmyStrength());
 
-		// Print who is running away from whom 
-		System.out.println("So long "+this.protectorsNoble.getName()+". I'm out of here -- "+this.name);
+			// Print who is running away from whom 
+			System.out.println("So long "+this.protectorsNoble.getName()+". I'm out of here -- "+this.name);
+		}
 
 	}
 
-	/*
-	the name of protector
-	the strength of the protector
-	employement status of the protector
-	the Lord who hired the protector
-	 */
-	protected String name;
-	protected double strength;
-	protected Boolean employed = false;
-	protected Lord protectorsNoble = null;
 }

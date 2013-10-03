@@ -18,6 +18,7 @@ class NoblesAndProtectors
         Wizard thora = new Wizard("Thorapleth", 70);
  
         sam.hire(samantha);
+        samantha.getEmployer();
         janet.hire(hardy);  
         janet.hire(stout);
     
@@ -35,10 +36,10 @@ class NoblesAndProtectors
 
         thora.runsaway();
 
-        // System.out.println(sam);
-        // System.out.println(joe);
-        // System.out.println(janet);
-        // System.out.println(randy);
-        // System.out.println(barclay);
+        System.out.println(sam);
+        System.out.println(joe);
+        System.out.println(janet);
+        System.out.println(randy);
+        System.out.println(barclay);
     }    
 }

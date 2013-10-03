@@ -10,9 +10,12 @@ abstract class Noble {
 	the strength of the noble's army
 	status of death of the noble
 	 */
-	protected String name;
-	protected double armyStrength;
-	protected Boolean dead;
+	private String name;
+	private double armyStrength;
+	private Boolean dead;
+
+	// A list of Protectors for a Lord
+	private ArrayList<Protector> lordProtectors = new ArrayList<Protector>();
 	
 	/*
 	Constructor function for a Noble
@@ -37,11 +40,16 @@ abstract class Noble {
 
 	/*
 	check if the Nobleman is dead 
-	@return : Boolean value of the Noble's dead status 
+	@return : Boolean value of the Noble's dead status - true when dead
 	 */
 	public Boolean isDead()
 	{
 		return this.dead;
+	}
+
+	public void setDead(Boolean status)
+	{
+		this.dead = status;
 	}
 
 	/*
@@ -61,10 +69,6 @@ abstract class Noble {
 	//abstract class to set the strength of the army
 	public abstract void setArmyStrength(double strength);
 
-	/*
-	when a noble goes to battle with an enemy
-	@param : enemy Noble
-	 */
 	/*
 	when a noble goes to battle with an enemy
 	@param : enemy Noble
@@ -92,7 +96,7 @@ abstract class Noble {
 		else 
 		{
 			// eqaul strength of armies
-			if(this.armyStrength == enemy.armyStrength)
+			if(this.getArmyStrength() == enemy.getArmyStrength())
 			{
 				// kill both armies in battle
 				this.killArmy();
@@ -102,12 +106,12 @@ abstract class Noble {
 
 			}
 			// noble's strength of army greater than enemy
-			else if(this.armyStrength > enemy.armyStrength)
+			else if(this.getArmyStrength() > enemy.getArmyStrength())
 			{
-				System.out.println(this.armyStrength);
-				System.out.println(enemy.armyStrength);
-				double armyStrengthRatio = (enemy.armyStrength/this.armyStrength);
-				
+				double enemyArmyStrength = enemy.getArmyStrength();
+				double fighterArmyStrength = this.getArmyStrength();
+				double armyStrengthRatio = (fighterArmyStrength/enemyArmyStrength);
+
 				// since enemy is overpowered - KILL HIM
 				// but the noble is hurt by the ratio
 				enemy.killArmy();
@@ -119,9 +123,9 @@ abstract class Noble {
 			// enemy's strength of army greater than noble's
 			else 
 			{
-				System.out.println(this.armyStrength);
-				System.out.println(enemy.armyStrength);
-				double armyStrengthRatio = (this.armyStrength/enemy.armyStrength);
+				double enemyArmyStrength = enemy.getArmyStrength();
+				double fighterArmyStrength = this.getArmyStrength();
+				double armyStrengthRatio = (fighterArmyStrength/enemyArmyStrength);
 				
 				// since Noble is overpowered - KILL HIM
 				// but the enemy is hurt by the ratio
@@ -131,7 +135,6 @@ abstract class Noble {
 				System.out.println(enemy.name+" defeats "+this.name);
 
 			}
-
 
 		}
 

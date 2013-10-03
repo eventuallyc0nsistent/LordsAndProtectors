@@ -1,14 +1,24 @@
 import java.util.*;
 
-class Swordsman extends Protector
+class Swordsman extends Warrior
 {
+	private String name;
+	private double strength;
+	private Boolean employed;
+	private Lord protectorsNoble;
+
 	public Swordsman(String name, double strength)
 	{
 		super(name,strength);
+
+		
 	}
 
-	public void fight()
+	public String fight()
 	{
-		System.out.println("CLANG!  "+this.getName()+" says: Take that in the name of my lord, "+this.protectorsNoble.getName());
+		Lord employer = this.getEmployer();
+		String battleCry = "CLANG!  "+this.getName()+" says: Take that in the name of my lord, "+employer.getName();
+		return battleCry;
 	}
+	
 }
