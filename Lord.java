@@ -95,7 +95,7 @@ class Lord extends Noble {
 			p.setStrength(0);
 
 			// shout of the Protector !
-			p.fight();
+			System.out.println(p.fight());
 		}
 
 	}
@@ -121,7 +121,7 @@ class Lord extends Noble {
 			// // set the strength of the protector
 			double protectorStrength = p.getStrength() - armyStrengthRatio*p.getStrength();
 			p.setStrength(protectorStrength);
-			p.fight();
+			System.out.println(p.fight());
 		}
 
 	}
